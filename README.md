@@ -23,7 +23,7 @@ An SDK has to hide accidental complexity without hiding the states developers mu
 ## System shape
 
 ```mermaid
-flowchart LR
+flowchart TD
     n0["Application"]
     n1["SDK contract"]
     n2["Provider adapters"]
