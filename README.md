@@ -1,23 +1,28 @@
-[← All systems](https://github.com/J0UH) · [Open finance and payments](https://github.com/J0UH/open-finance-payments)
-
-<p align="center">
-  <img src="assets/hero.webp" alt="One shared connector branches into four differently keyed mechanical adapter ports" width="100%" />
-</p>
+[← All work](https://github.com/J0UH) · [Open finance and payments](https://github.com/J0UH/open-finance-payments)
 
 # Wallet and integration SDK
 
-Wallet integrations sit at an awkward boundary. Product teams want one clean interface, but the underlying providers, networks, permissions, sessions, and error modes refuse to behave uniformly. This work turned that variation into a smaller contract that applications could rely on.
+A smaller application interface around providers and networks that behave differently underneath.
 
-## The engineering problem
+<img src="assets/hero-v2.webp" alt="Wallet and integration SDK illustrated as a crafted architectural model, with exposed sketch and structural framing" width="100%" />
 
-An SDK has to hide accidental complexity without hiding the states developers must handle. Compatibility, clear errors, predictable lifecycle events, and safe defaults matter more than a clever abstraction.
+Product teams want a wallet connection that fits their application. The providers bring different sessions, network lifecycles, permissions, and error states.
 
+This work turns that variation into a more manageable integration contract. Part of it adapts Reown AppKit, with the local work in provider integration, lifecycle handling, and the behaviour exposed to products.
 
-## Foundation and adaptation
+## Hiding the right amount
+
+An application still needs to know when its session changes, when a network is unsuitable, or when an operation needs recovery. Those states cannot disappear just because the wrapper is convenient.
+
+I keep provider-specific behaviour at the edge and make lifecycle changes observable. Typed interfaces and normalised errors help the consuming product handle the states that matter.
+
+The aim is a small, stable contract rather than a wrapper for every upstream option. Application examples and developer guidance complete that work by showing how the integration behaves outside the ideal path.
+
+## Built on
 
 Part of this work adapts [Reown AppKit](https://github.com/reown-com/appkit), retained under its Apache-2.0 licence. The adapter work covers the smaller SDK contract, provider integration, product lifecycle, and operating behaviour built around that foundation.
 
-## What the system covers
+## What the work covers
 
 - Provider and connector abstraction
 - Session and network lifecycle handling
@@ -25,7 +30,8 @@ Part of this work adapts [Reown AppKit](https://github.com/reown-com/appkit), re
 - Error normalisation and recovery
 - Application examples and developer guidance
 
-## System shape
+<details>
+<summary>A closer look at the technical flow</summary>
 
 ```mermaid
 flowchart TD
@@ -40,14 +46,14 @@ accDescr: The application depends on one SDK contract. Supported providers pass 
     session -->|Disconnect or revoke| app
 ```
 
-## Build notes
+</details>
 
-- Keep provider-specific behaviour at the edge.
-- Make lifecycle changes observable instead of surprising the application.
-- Prefer a small stable contract over a wrapper for every upstream option.
+## Related work
 
-<sub>Public overview only. Source code, customer data, credentials, and private operating details are not included.</sub>
+- [Open finance and payments](https://github.com/J0UH/open-finance-payments)
+- [Decentralised exchange platform](https://github.com/J0UH/dex-platform)
+- [Multi-asset money platform](https://github.com/J0UH/multi-asset-money-platform)
 
-## Talk through a similar problem
+Working on a similar problem? [Tell me what you are building](mailto:ju@jomena.group?subject=Wallet%20and%20integration%20SDK).
 
-Working on something similar? [Tell me about it](mailto:ju@jomena.group?subject=Wallet%20and%20integration%20SDK).
+*This is a public account of the work. Source code and private operating details are not included in this repository.*
